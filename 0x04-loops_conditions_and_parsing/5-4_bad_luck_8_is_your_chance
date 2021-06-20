@@ -3,14 +3,14 @@
 c=1
 while [ $c -le 10 ]
 do
-	if [ $c = 4 ]
+	if [ $c -eq 4 ]
 	then
 		echo "bad luck"
-	elif [ $c = 8 ]
+	elif [ $c -eq 8 ]
 	then	
 		echo "goog luck"
 	else 
 		echo "Holberton School"
 	fi
-	c=$((c = c + 1))
+	 ((c++))
 done
