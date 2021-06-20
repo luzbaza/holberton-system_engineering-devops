@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#that loops from 1 to 10 and bad luck, good luck.
+#that loops from 1 to 10 and bad luck, good luck
 c=1
 while [ $c -le 10 ]
 do
