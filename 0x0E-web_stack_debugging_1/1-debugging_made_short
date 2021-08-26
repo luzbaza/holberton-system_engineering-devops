@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#script must be 5 lines long or less
+
+sudo sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
+sudo service nginx restart
+sudo pkill -o nginx
