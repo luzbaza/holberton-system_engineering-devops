@@ -12,7 +12,7 @@ if __name__ == "__main__":
     r = requests.get('https://jsonplaceholder.typicode.com/users/{:}'
                      .format(argv[1])).json()
 
-    r2 = requests.get('https://jsonplaceholder.typicode.com/todos/userId={:}'
+    r2 = requests.get('https://jsonplaceholder.typicode.com/todos/?userId={:}'
                       .format(argv[1])).json()
 
     for task in r2:
