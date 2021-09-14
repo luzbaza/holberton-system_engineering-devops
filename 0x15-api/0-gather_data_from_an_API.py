@@ -3,26 +3,31 @@
 returns information about his/her TODO list progress."""
 
 import requests
-import sys
+from sys import argv
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    try:
+        emp_id = int(argv[1])
+    except ValueError:
+        exit()
 
-    if len(sys.argv) == 2 and sys.argv[1].isdigit():
-        args = {"id": sys.argv[1]}
-        users = requests.get("https://jsonplaceholder.typicode.com/users",
-                             params=args).json()
-        args = {"userId": sys.argv[1]}
-        todos = requests.get("https://jsonplaceholder.typicode.com/todos",
-                             params=args).json()
-        todos_len = 0
-        todos_arr = []
-        for i in todos:
-            if i.get("completed"):
-                todos_arr.append(i)
-                todos_len += 1
+    api_url = 'https://jsonplaceholder.typicode.com'
+    user_uri = '{api}/users/{id}'.format(api=api_url, id=emp_id)
+    todo_uri = '{user_uri}/todos'.format(user_uri=user_uri)
 
-        print("Employee {} is done with tasks({}/{}):".format(
-              users[0].get("name"), todos_len, len(todos)))
+    res = requests.get(user_uri).json()
 
-        for i in todos_arr:
-            print("\t {}".format(i.get("title")))
+    name = res.get('name')
+
+    res = requests.get(todo_uri).json()
+
+    total = len(res)
+
+    non_completed = sum([elem['completed'] is False for elem in res])
+    completed = total - non_completed
+    str = "Employee {emp_name} is done with tasks({completed}/{total}):"
+    print(str.format(emp_name=name, completed=completed, total=total))
+
+    for elem in res:
+        if elem.get('completed') is True:
+            print('\t', elem.get('title'))
