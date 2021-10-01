@@ -1,6 +1,7 @@
 #Apache is returning a 500 error.
+# Fix wp-setting file extension error
 
-file { '/var/www/html/wp-includes/class-wp-locate.phpp':
-    ensure => present,
-    source => '/var/www/html/wp-includes/class-wp-locate.php',
+exec { 'killmenow':
+    command => "sed -i 's/class-wp-locale.phpp/class-wp-locale.php/g' /var/www/html/wp-settings.php",
+    path    => '/bin',
 }
